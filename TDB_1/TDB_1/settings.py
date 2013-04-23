@@ -154,3 +154,14 @@ LOGGING = {
         },
     }
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'tdb_1', # db_name
+        'USER': 'django', # db_user
+        #'PASSWORD: 'db_user_password', # db_user_passwd
+        'HOST': ''
+        #'OPTIONS': {}
+    }
+}
