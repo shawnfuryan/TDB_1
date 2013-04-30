@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'TDB_1.views.home', name='home'),
     # url(r'^TDB_1/', include('TDB_1.foo.urls')),
     url(r'^$', 'homepage.views.hello'),
+    url(r'^polls$', 'polls.views.hello'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
