@@ -14,6 +14,7 @@ urlpatterns = patterns('',
         # eg: /polls/25/
         url(r'^(?P<pk>\d+)/$',
             DetailView.as_view(
+                queryset=Poll.objects.filter(pub_date__lte=timezone.now),
                 model=Poll,
                 template_name='polls/detail.html'),
             name='detail'),
