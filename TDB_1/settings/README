@@ -1,0 +1,8 @@
+# base.py - Project settings common to all all environments
+# local.py - Shared Dev/Debug settings
+# production.py - Settings for full production environment (shouldn't deviate much from base.py)
+
+# Potential Future additions
+# staging.py - Settings for staging on prod server
+# devDEV_NAME.py - Individual developer settings for DEV_NAME
+# test.py - settings for running tests
