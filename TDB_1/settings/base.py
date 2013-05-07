@@ -1,11 +1,42 @@
-# Django settings for TDB_1 project.
+#################################################
+# Django base settings for TDB_1 project.
 import os
+from unipath import Path
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+# Normally you shouldn't import ANYTHING from Django directly into settings,
+#   but ImproperlyConfigured is one rare exception
+from django.core.exceptions import ImproperlyConfigured
+msg = "Set the %s environment variable."
+# get_env_variable(var_name)
+# Can be used to attempt to access an environment variable, and if it is unavailable,
+#   gives a more useful error message and traceback so the variable can be set by a
+#   sysadmin.
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = msg % var_name
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_env_variable("DJANGO_SECRET_KEY")
+
+this_file = Path(__file__).absolute()  # this_file = '/path/to/TDJ_1/TDJ_1/settings/base.py'
+PROJECT_DIR = this_file.ancestor(3)  # PROJECT_DIR = '/path/to/TDJ_1'
+#MEDIA_ROOT = PROJECT_DIR.child("media")
+STATIC_ROOT = PROJECT_DIR.child("static")
+TEMPLATE_DIRS = (
+    PROJECT_DIR.child("templates"),
+)
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://example.com/media/", "http://media.example.com/"
+#MEDIA_URL = ''
+STATIC_URL = '/static/'
+#STATICFILES_DIRS = ()
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('shawn', 'shawn.furyan@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -22,21 +53,9 @@ DATABASES = {
     }
 }
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#        'NAME': '',                      # Or path to database file if using sqlite3.
-#        # The following settings are not used with sqlite3:
-#        'USER': '',
-#        'PASSWORD': '',
-#        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-#        'PORT': '',                      # Set to empty string for default.
-#    }
-#}
-
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '99.64.102.64', '127.0.0.1', ]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -52,40 +71,15 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-USE_L10N = True
+USE_L10N = False
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -121,13 +115,6 @@ ROOT_URLCONF = 'TDB_1.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'TDB_1.wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    '/home/shawn/Data/Projects/TDB_1/templates',
-)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
